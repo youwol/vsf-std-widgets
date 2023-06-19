@@ -1,6 +1,6 @@
 {
     "name": "@youwol/vsf-std-widgets",
-    "description": "Toolbox exposing standard HTML widgets.",
+    "description": "Visual Studio Flow toolbox exposing standard HTML widgets.",
     "version": "0.1.0-wip",
     "author": "greinisch@youwol.com",
     "homepage": "https://github.com/youwol/vsf-std-widgets#README.md",
@@ -47,13 +47,13 @@
         ]
     },
     "dependencies": {
-        "@youwol/vsf-core": "^0.1.1",
+        "@youwol/vsf-core": "^0.1.2",
         "@youwol/flux-view": "^1.1.1",
         "rxjs": "^6.5.5"
     },
     "youwol": {
         "cdnDependencies": {
-            "@youwol/vsf-core": "^0.1.1",
+            "@youwol/vsf-core": "^0.1.2",
             "@youwol/flux-view": "^1.1.1",
             "rxjs": "^6.5.5"
         }
