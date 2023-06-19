@@ -65,12 +65,12 @@ const entries = {
 export const setup = {
     name:'@youwol/vsf-std-widgets',
         assetId:'QHlvdXdvbC92c2Ytc3RkLXdpZGdldHM=',
-    version:'0.1.0-wip',
+    version:'0.1.0',
     shortDescription:"Visual Studio Flow toolbox exposing standard HTML widgets.",
     developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/vsf-std-widgets&tab=doc',
     npmPackage:'https://www.npmjs.com/package/@youwol/vsf-std-widgets',
     sourceGithub:'https://github.com/youwol/vsf-std-widgets',
-    userGuide:'https://l.youwol.com/doc/@youwol/vsf-std-widgets',
+    userGuide:'',
     apiVersion:'01',
     runTimeDependencies,
     externals,
@@ -111,7 +111,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@youwol/vsf-std-widgets#0.1.0-wip~dist/@youwol/vsf-std-widgets/${entry.name}.js`
+            `@youwol/vsf-std-widgets#0.1.0~dist/@youwol/vsf-std-widgets/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
