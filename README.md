@@ -1,6 +1,6 @@
 # @youwol/vsf-std-widgets
 
-Toolbox exposing standard HTML widgets.
+Visual Studio Flow toolbox exposing standard HTML widgets.
 
 This library is part of the hybrid cloud/local ecosystem
 [YouWol](https://platform.youwol.com/applications/@youwol/platform/latest).

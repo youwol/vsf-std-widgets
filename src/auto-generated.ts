@@ -1,7 +1,7 @@
 
 const runTimeDependencies = {
     "externals": {
-        "@youwol/vsf-core": "^0.1.1",
+        "@youwol/vsf-core": "^0.1.2",
         "@youwol/flux-view": "^1.1.1",
         "rxjs": "^6.5.5"
     },
@@ -66,7 +66,7 @@ export const setup = {
     name:'@youwol/vsf-std-widgets',
         assetId:'QHlvdXdvbC92c2Ytc3RkLXdpZGdldHM=',
     version:'0.1.0-wip',
-    shortDescription:"Toolbox exposing standard HTML widgets.",
+    shortDescription:"Visual Studio Flow toolbox exposing standard HTML widgets.",
     developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/vsf-std-widgets&tab=doc',
     npmPackage:'https://www.npmjs.com/package/@youwol/vsf-std-widgets',
     sourceGithub:'https://github.com/youwol/vsf-std-widgets',
