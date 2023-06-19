@@ -23,7 +23,6 @@ class PipelineFactory(IPipelineFactory):
             ),
             publishConfig=PublishConfig(
                 packagedArtifacts=["dist", "docs", "test-coverage"],
-                packagedFolders=["assets"],
             ),
         )
         return await pipeline(config, context)
