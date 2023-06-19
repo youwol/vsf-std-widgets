@@ -7,7 +7,7 @@ This library is part of the hybrid cloud/local ecosystem
 
 ## Links
 
-[Online user-guide](https://l.youwol.com/doc/@youwol/vsf-std-widgets)
+
 
 [Developers documentation](https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/vsf-std-widgets&tab=doc)
 

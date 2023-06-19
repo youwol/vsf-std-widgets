@@ -35,7 +35,7 @@ template = Template(
             loadDependencies=["@youwol/vsf-core", "@youwol/flux-view", "rxjs"],
         ),
     ),
-    userGuide=True,
+    userGuide=False,
 )
 
 generate_template(template)
