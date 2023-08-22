@@ -1,7 +1,7 @@
 
 const runTimeDependencies = {
     "externals": {
-        "@youwol/vsf-core": "^0.1.2",
+        "@youwol/vsf-core": "^0.2.0",
         "@youwol/flux-view": "^1.1.1",
         "rxjs": "^6.5.5"
     },
@@ -11,7 +11,7 @@ const externals = {
     "@youwol/vsf-core": {
         "commonjs": "@youwol/vsf-core",
         "commonjs2": "@youwol/vsf-core",
-        "root": "@youwol/vsf-core_APIv01"
+        "root": "@youwol/vsf-core_APIv02"
     },
     "@youwol/flux-view": {
         "commonjs": "@youwol/flux-view",
@@ -34,7 +34,7 @@ const externals = {
 }
 const exportedSymbols = {
     "@youwol/vsf-core": {
-        "apiKey": "01",
+        "apiKey": "02",
         "exportedSymbol": "@youwol/vsf-core"
     },
     "@youwol/flux-view": {
@@ -65,13 +65,13 @@ const entries = {
 export const setup = {
     name:'@youwol/vsf-std-widgets',
         assetId:'QHlvdXdvbC92c2Ytc3RkLXdpZGdldHM=',
-    version:'0.1.0',
+    version:'0.2.0',
     shortDescription:"Visual Studio Flow toolbox exposing standard HTML widgets.",
     developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/vsf-std-widgets&tab=doc',
     npmPackage:'https://www.npmjs.com/package/@youwol/vsf-std-widgets',
     sourceGithub:'https://github.com/youwol/vsf-std-widgets',
     userGuide:'',
-    apiVersion:'01',
+    apiVersion:'02',
     runTimeDependencies,
     externals,
     exportedSymbols,
@@ -96,7 +96,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/vsf-std-widgets_APIv01`]
+            return window[`@youwol/vsf-std-widgets_APIv02`]
         })
     },
     installAuxiliaryModule: ({name, cdnClient, installParameters}:{
@@ -111,7 +111,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@youwol/vsf-std-widgets#0.1.0~dist/@youwol/vsf-std-widgets/${entry.name}.js`
+            `@youwol/vsf-std-widgets#0.2.0~dist/@youwol/vsf-std-widgets/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
@@ -122,7 +122,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/vsf-std-widgets/${entry.name}_APIv01`]
+            return window[`@youwol/vsf-std-widgets/${entry.name}_APIv02`]
         })
     },
     getCdnDependencies(name?: string){
