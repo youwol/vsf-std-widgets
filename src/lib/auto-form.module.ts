@@ -1,4 +1,4 @@
-import { Attributes, Immutable, Schema, Modules } from '@youwol/vsf-core'
+import { Configurations, Immutable, Modules } from '@youwol/vsf-core'
 import { map } from 'rxjs/operators'
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs'
 import { children$ } from '@youwol/flux-view'
@@ -36,8 +36,12 @@ export class State {
      *
      * @group Observables
      */
-    public readonly schema$: Observable<Immutable<Partial<Schema>>>
-    private readonly _schema$: BehaviorSubject<Immutable<Partial<Schema>>>
+    public readonly schema$: Observable<
+        Immutable<Partial<Configurations.Schema>>
+    >
+    private readonly _schema$: BehaviorSubject<
+        Immutable<Partial<Configurations.Schema>>
+    >
     /**
      * Emit the updated configuration at any change from the form.
      * @group Observables
@@ -46,7 +50,7 @@ export class State {
     private readonly _updated$: Subject<Immutable<unknown>> = new Subject()
 
     constructor(fwdParameters) {
-        this._schema$ = new BehaviorSubject<Partial<Schema>>(
+        this._schema$ = new BehaviorSubject<Partial<Configurations.Schema>>(
             fwdParameters.configurationInstance.schema,
         )
         this.schema$ = this._schema$.asObservable()
@@ -75,7 +79,7 @@ export function module(fwdParameters: Modules.ForwardArgs) {
     )
 }
 
-type AttributeTrait<T> = Attributes.AttributeTrait<T>
+type AttributeTrait<T> = Configurations.AttributeTrait<T>
 
 function html(state: State) {
     return {
@@ -132,7 +136,7 @@ function html(state: State) {
 
 const factory = [
     {
-        test: (att) => att instanceof Attributes.String,
+        test: (att) => att instanceof Configurations.String,
         view: (
             att: AttributeTrait<string>,
             value$: BehaviorSubject<string>,
@@ -146,7 +150,7 @@ const factory = [
         },
     },
     {
-        test: (att) => att instanceof Attributes.Boolean,
+        test: (att) => att instanceof Configurations.Boolean,
         view: (
             att: AttributeTrait<boolean>,
             value$: BehaviorSubject<boolean>,
@@ -161,8 +165,8 @@ const factory = [
     },
     {
         test: (att) =>
-            att instanceof Attributes.Float ||
-            att instanceof Attributes.Integer,
+            att instanceof Configurations.Float ||
+            att instanceof Configurations.Integer,
         view: (
             att: AttributeTrait<number>,
             value$: BehaviorSubject<number>,
