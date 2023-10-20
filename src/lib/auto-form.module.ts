@@ -79,7 +79,7 @@ export function module(fwdParameters: Modules.ForwardArgs) {
     )
 }
 
-type AttributeTrait<T> = Configurations.AttributeTrait<T>
+type AttributeTrait<T> = Configurations.AttributeTrait<T, Modules.OverrideType>
 
 function html(state: State) {
     return {
