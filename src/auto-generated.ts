@@ -1,7 +1,7 @@
 
 const runTimeDependencies = {
     "externals": {
-        "@youwol/vsf-core": "^0.2.0",
+        "@youwol/vsf-core": "^0.2.4",
         "@youwol/flux-view": "^1.1.1",
         "rxjs": "^6.5.5"
     },
