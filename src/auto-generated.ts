@@ -1,48 +1,48 @@
 
 const runTimeDependencies = {
     "externals": {
-        "@youwol/vsf-core": "^0.2.4",
-        "@youwol/flux-view": "^1.1.1",
-        "rxjs": "^6.5.5"
+        "@youwol/rx-vdom": "^1.0.3",
+        "@youwol/vsf-core": "^0.3.3",
+        "rxjs": "^7.5.6"
     },
     "includedInBundle": {}
 }
 const externals = {
+    "@youwol/rx-vdom": {
+        "commonjs": "@youwol/rx-vdom",
+        "commonjs2": "@youwol/rx-vdom",
+        "root": "@youwol/rx-vdom_APIv1"
+    },
     "@youwol/vsf-core": {
         "commonjs": "@youwol/vsf-core",
         "commonjs2": "@youwol/vsf-core",
-        "root": "@youwol/vsf-core_APIv02"
-    },
-    "@youwol/flux-view": {
-        "commonjs": "@youwol/flux-view",
-        "commonjs2": "@youwol/flux-view",
-        "root": "@youwol/flux-view_APIv1"
+        "root": "@youwol/vsf-core_APIv03"
     },
     "rxjs": {
         "commonjs": "rxjs",
         "commonjs2": "rxjs",
-        "root": "rxjs_APIv6"
+        "root": "rxjs_APIv7"
     },
     "rxjs/operators": {
         "commonjs": "rxjs/operators",
         "commonjs2": "rxjs/operators",
         "root": [
-            "rxjs_APIv6",
+            "rxjs_APIv7",
             "operators"
         ]
     }
 }
 const exportedSymbols = {
+    "@youwol/rx-vdom": {
+        "apiKey": "1",
+        "exportedSymbol": "@youwol/rx-vdom"
+    },
     "@youwol/vsf-core": {
-        "apiKey": "02",
+        "apiKey": "03",
         "exportedSymbol": "@youwol/vsf-core"
     },
-    "@youwol/flux-view": {
-        "apiKey": "1",
-        "exportedSymbol": "@youwol/flux-view"
-    },
     "rxjs": {
-        "apiKey": "6",
+        "apiKey": "7",
         "exportedSymbol": "rxjs"
     }
 }
@@ -51,7 +51,7 @@ const mainEntry : {entryFile: string,loadDependencies:string[]} = {
     "entryFile": "./lib/toolbox.ts",
     "loadDependencies": [
         "@youwol/vsf-core",
-        "@youwol/flux-view",
+        "@youwol/rx-vdom",
         "rxjs"
     ]
 }
@@ -65,13 +65,13 @@ const entries = {
 export const setup = {
     name:'@youwol/vsf-std-widgets',
         assetId:'QHlvdXdvbC92c2Ytc3RkLXdpZGdldHM=',
-    version:'0.2.1',
+    version:'0.3.1-wip',
     shortDescription:"Visual Studio Flow toolbox exposing standard HTML widgets.",
     developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/vsf-std-widgets&tab=doc',
     npmPackage:'https://www.npmjs.com/package/@youwol/vsf-std-widgets',
     sourceGithub:'https://github.com/youwol/vsf-std-widgets',
     userGuide:'',
-    apiVersion:'02',
+    apiVersion:'03',
     runTimeDependencies,
     externals,
     exportedSymbols,
@@ -96,7 +96,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/vsf-std-widgets_APIv02`]
+            return window[`@youwol/vsf-std-widgets_APIv03`]
         })
     },
     installAuxiliaryModule: ({name, cdnClient, installParameters}:{
@@ -111,7 +111,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@youwol/vsf-std-widgets#0.2.1~dist/@youwol/vsf-std-widgets/${entry.name}.js`
+            `@youwol/vsf-std-widgets#0.3.1-wip~dist/@youwol/vsf-std-widgets/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
@@ -122,7 +122,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/vsf-std-widgets/${entry.name}_APIv02`]
+            return window[`@youwol/vsf-std-widgets/${entry.name}_APIv03`]
         })
     },
     getCdnDependencies(name?: string){

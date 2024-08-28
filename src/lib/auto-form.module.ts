@@ -1,7 +1,7 @@
 import { Configurations, Immutable, Modules } from '@youwol/vsf-core'
 import { map } from 'rxjs/operators'
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs'
-import { children$ } from '@youwol/flux-view'
+import { BehaviorSubject, Observable, Subject, combineLatest } from 'rxjs'
+import { AnyVirtualDOM } from '@youwol/rx-vdom'
 
 export const configuration = {
     schema: {
@@ -49,14 +49,16 @@ export class State {
     public readonly updated$: Observable<Immutable<unknown>>
     private readonly _updated$: Subject<Immutable<unknown>> = new Subject()
 
-    constructor(fwdParameters) {
-        this._schema$ = new BehaviorSubject<Partial<Configurations.Schema>>(
-            fwdParameters.configurationInstance.schema,
+    constructor(fwdParameters: Modules.ForwardArgs) {
+        this._schema$ = new BehaviorSubject(
+            fwdParameters.configurationInstance[
+                'schema'
+            ] as Partial<Configurations.Schema>,
         )
         this.schema$ = this._schema$.asObservable()
         this.updated$ = this._updated$.asObservable()
     }
-    emit(value) {
+    emit(value: unknown) {
         this._updated$.next(value)
     }
 }
@@ -81,90 +83,104 @@ export function module(fwdParameters: Modules.ForwardArgs) {
 
 type AttributeTrait<T> = Configurations.AttributeTrait<T, Modules.OverrideType>
 
-function html(state: State) {
+function html(state: State): AnyVirtualDOM {
     return {
+        tag: 'div' as const,
         class: 'fv-bg-background container py-1 border rounded',
-        children: children$(state.schema$, (schema) => {
-            const children = Object.entries(schema)
-                .map(([k, v]) => {
-                    const asAttribute = v as AttributeTrait<unknown>
-                    return [
-                        k,
-                        v,
-                        factory.find((elem) => elem.test(asAttribute)),
-                    ]
-                })
-                .filter(([, , elem]) => elem != undefined)
-                .map(
-                    ([key, attr, elem]: [
-                        string,
-                        AttributeTrait<unknown>,
-                        { view },
-                    ]) => {
-                        const value$ = new BehaviorSubject(attr.getValue())
-                        const targetView = elem.view(attr, value$)
-                        return {
-                            key,
-                            value$,
-                            class: 'd-flex align-items-center row px-2',
-                            children: [
-                                { class: 'col', innerText: key },
-                                { class: 'col', ...targetView },
-                            ],
-                        }
-                    },
-                )
-            combineLatest(children.map((c) => c.value$))
-                .pipe(
-                    map((values) => {
-                        return values.reduce(
-                            (acc: { [k: string]: unknown }, e, i) => ({
-                                ...acc,
-                                [children[i].key]: e,
-                            }),
-                            {},
-                        )
-                    }),
-                )
-                .subscribe((d) => {
-                    state.emit(d)
-                })
-            return children
-        }),
+        children: {
+            policy: 'replace',
+            source$: state.schema$,
+            vdomMap: (schema: Immutable<Partial<Configurations.Schema>>) => {
+                const children = Object.entries(schema)
+                    .map(([k, v]) => {
+                        const asAttribute = v as AttributeTrait<unknown>
+                        return [
+                            k,
+                            v,
+                            factory.find((elem) => elem.test(asAttribute)),
+                        ]
+                    })
+                    .filter(([, , elem]) => elem != undefined)
+                    .map(
+                        ([key, attr, elem]: [
+                            string,
+                            AttributeTrait<unknown>,
+                            { view },
+                        ]) => {
+                            const value$ = new BehaviorSubject(attr.getValue())
+                            const targetView = elem.view(attr, value$)
+                            return {
+                                tag: 'div' as const,
+                                key,
+                                value$,
+                                class: 'd-flex align-items-center row px-2',
+                                children: [
+                                    {
+                                        tag: 'div' as const,
+                                        class: 'col',
+                                        innerText: key,
+                                    },
+                                    {
+                                        class: 'col',
+                                        ...targetView,
+                                    },
+                                ],
+                            }
+                        },
+                    )
+                combineLatest(children.map((c) => c.value$))
+                    .pipe(
+                        map((values) => {
+                            return values.reduce(
+                                (acc: { [k: string]: unknown }, e, i) => ({
+                                    ...acc,
+                                    [children[i].key]: e,
+                                }),
+                                {},
+                            )
+                        }),
+                    )
+                    .subscribe((d) => {
+                        state.emit(d)
+                    })
+                return children
+            },
+        },
     }
 }
 
 const factory = [
     {
-        test: (att) => att instanceof Configurations.String,
+        test: (att: unknown) => att instanceof Configurations.String,
         view: (
             att: AttributeTrait<string>,
             value$: BehaviorSubject<string>,
         ) => {
             return {
-                tag: 'input',
+                tag: 'input' as const,
                 type: 'text',
                 value: att.getValue(),
-                onchange: (ev) => value$.next(ev.target.value),
+                onchange: (ev: KeyboardEvent) =>
+                    value$.next(ev.target['value']),
             }
         },
     },
     {
-        test: (att) => att instanceof Configurations.Boolean,
+        test: (att: unknown) => att instanceof Configurations.Boolean,
         view: (
             att: AttributeTrait<boolean>,
             value$: BehaviorSubject<boolean>,
         ) => {
             return {
-                tag: 'input',
+                tag: 'input' as const,
                 type: 'checkbox',
                 value: att.getValue(),
-                onchange: (ev) => value$.next(ev.target.checked),
+                onchange: (ev: MouseEvent) => value$.next(ev.target['checked']),
             }
         },
     },
     {
-        test: (att) =>
+        test: (att: unknown) =>
             att instanceof Configurations.Float ||
             att instanceof Configurations.Integer,
         view: (
@@ -172,10 +188,11 @@ const factory = [
             value$: BehaviorSubject<number>,
         ) => {
             return {
-                tag: 'input',
+                tag: 'input' as const,
                 type: 'number',
                 value: att.getValue(),
-                onchange: (ev) => value$.next(parseFloat(ev.target.value)),
+                onchange: (ev: KeyboardEvent) =>
+                    value$.next(parseFloat(ev.target['value'])),
             }
         },
     },
